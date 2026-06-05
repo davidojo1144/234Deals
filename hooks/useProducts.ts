@@ -38,7 +38,7 @@ export const useProducts = () => {
   }, []);
 
   // Debounced search handler
-  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleSearch = useCallback(
     (query: string) => {
