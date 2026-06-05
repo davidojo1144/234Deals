@@ -12,7 +12,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useProducts } from "@/hooks/useProducts";
 import { ProductCard } from "@/components/ProductCard";
-import { ProductListSkeleton } from "@/components/ui/ProductListSkeleton";
+import { ProductCardSkeleton } from "@/components/ProductCardSkeleton";
 import { Product } from "@/lib/types";
 
 export default function ProductListingScreen() {
@@ -44,9 +44,12 @@ export default function ProductListingScreen() {
     handleSearch("");
   };
 
-  const renderProductCard = ({ item }: { item: Product }) => (
-    <ProductCard product={item} />
-  );
+  const renderProductCard = ({ item }: { item: any }) => {
+    if (item.isSkeleton) {
+      return <ProductCardSkeleton />;
+    }
+    return <ProductCard product={item} />;
+  };
 
   const renderHeader = () => (
     <View>
@@ -118,9 +121,15 @@ export default function ProductListingScreen() {
 
       {/* Results Count */}
       <View className="px-4 mb-3">
-        <Text className="text-dark-400 text-xs font-medium">
-          {total} products found
-        </Text>
+        {isLoading ? (
+          <Text className="text-dark-400 text-xs font-medium">
+            Loading products...
+          </Text>
+        ) : (
+          <Text className="text-dark-400 text-xs font-medium">
+            {total} products found
+          </Text>
+        )}
       </View>
     </View>
   );
@@ -175,6 +184,10 @@ export default function ProductListingScreen() {
     );
   }
 
+  const listData = isLoading
+    ? Array.from({ length: 6 }).map((_, i) => ({ isSkeleton: true, id: `skeleton-${i}` }))
+    : products;
+
   return (
     <SafeAreaView className="flex-1 bg-white" edges={["top"]}>
       {/* Header */}
@@ -195,32 +208,28 @@ export default function ProductListingScreen() {
       </View>
 
       {/* Product List */}
-      {isLoading ? (
-        <ProductListSkeleton />
-      ) : (
-        <FlatList
-          data={products}
-          renderItem={renderProductCard}
-          keyExtractor={(item) => item.id.toString()}
-          numColumns={2}
-          columnWrapperStyle={{ paddingHorizontal: 8 }}
-          ListHeaderComponent={renderHeader}
-          ListFooterComponent={renderFooter}
-          ListEmptyComponent={renderEmpty}
-          onEndReached={handleLoadMore}
-          onEndReachedThreshold={0.3}
-          refreshControl={
-            <RefreshControl
-              refreshing={isRefreshing}
-              onRefresh={handleRefresh}
-              tintColor="#047857"
-              colors={["#047857"]}
-            />
-          }
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 20 }}
-        />
-      )}
+      <FlatList
+        data={listData}
+        renderItem={renderProductCard}
+        keyExtractor={(item) => item.id.toString()}
+        numColumns={2}
+        columnWrapperStyle={{ paddingHorizontal: 8 }}
+        ListHeaderComponent={renderHeader}
+        ListFooterComponent={renderFooter}
+        ListEmptyComponent={renderEmpty}
+        onEndReached={handleLoadMore}
+        onEndReachedThreshold={0.3}
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={handleRefresh}
+            tintColor="#047857"
+            colors={["#047857"]}
+          />
+        }
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 20 }}
+      />
     </SafeAreaView>
   );
 }

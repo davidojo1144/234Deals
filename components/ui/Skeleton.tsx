@@ -23,13 +23,13 @@ export const Skeleton: React.FC<SkeletonProps> = ({
   style,
   ...rest
 }) => {
-  const opacity = useSharedValue(0.3);
+  const opacity = useSharedValue(0.5);
 
   useEffect(() => {
     opacity.value = withRepeat(
       withSequence(
-        withTiming(0.7, { duration: 800 }),
-        withTiming(0.3, { duration: 800 })
+        withTiming(1, { duration: 800 }),
+        withTiming(0.5, { duration: 800 })
       ),
       -1,
       true
@@ -42,7 +42,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
 
   return (
     <Animated.View
-      className={`bg-dark-200 ${className}`}
+      className={`bg-dark-100 ${className}`}
       style={[
         {
           width: width as any,

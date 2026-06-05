@@ -5,13 +5,6 @@ import { Skeleton } from "./Skeleton";
 export const ProductDetailsSkeleton = () => {
   return (
     <View className="flex-1 bg-white">
-      {/* Top Bar Skeleton */}
-      <View className="flex-row items-center justify-between px-4 py-3 border-b border-dark-100">
-        <Skeleton className="w-10 h-10 rounded-full" />
-        <Skeleton className="w-32 h-5" />
-        <Skeleton className="w-10 h-10 rounded-full" />
-      </View>
-
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Carousel Image Skeleton */}
         <Skeleton className="w-full h-72 rounded-none mb-4" />
