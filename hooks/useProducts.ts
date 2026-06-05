@@ -54,7 +54,7 @@ export const useProducts = () => {
 
       searchTimeoutRef.current = setTimeout(() => {
         setSearchQuery(query);
-      }, 500);
+      }, 800);
     },
     [setSearchQuery]
   );

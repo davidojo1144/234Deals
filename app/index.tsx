@@ -177,7 +177,7 @@ export default function ProductListingScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-white" edges={["top"]}>
-      {/* Header */}
+      {/* App Top Bar */}
       <View className="px-4 pt-2 pb-4">
         <View className="flex-row items-center justify-between">
           <View>
@@ -194,6 +194,9 @@ export default function ProductListingScreen() {
         </View>
       </View>
 
+      {/* Sticky Header (Search & Filters) */}
+      {renderHeader()}
+
       {/* Product List */}
       {isLoading ? (
         <LoadingSpinner message="Fetching products..." fullScreen />
@@ -204,7 +207,6 @@ export default function ProductListingScreen() {
           keyExtractor={(item) => item.id.toString()}
           numColumns={2}
           columnWrapperStyle={{ paddingHorizontal: 8 }}
-          ListHeaderComponent={renderHeader}
           ListFooterComponent={renderFooter}
           ListEmptyComponent={renderEmpty}
           onEndReached={handleLoadMore}
