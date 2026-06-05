@@ -7,7 +7,7 @@ import { ImageCarousel } from "@/components/ImageCarousel";
 import { ReviewCard } from "@/components/ReviewCard";
 import { RatingStars } from "@/components/ui/RatingStars";
 import { Badge } from "@/components/ui/Badge";
-import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
+import { ProductDetailsSkeleton } from "@/components/ui/ProductDetailsSkeleton";
 
 export default function ProductDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -16,8 +16,8 @@ export default function ProductDetailsScreen() {
 
   if (isLoading) {
     return (
-      <SafeAreaView className="flex-1 bg-white">
-        <LoadingSpinner message="Loading product details..." fullScreen />
+      <SafeAreaView className="flex-1 bg-white" edges={["top"]}>
+        <ProductDetailsSkeleton />
       </SafeAreaView>
     );
   }

@@ -12,7 +12,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useProducts } from "@/hooks/useProducts";
 import { ProductCard } from "@/components/ProductCard";
-import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
+import { ProductListSkeleton } from "@/components/ui/ProductListSkeleton";
 import { Product } from "@/lib/types";
 
 export default function ProductListingScreen() {
@@ -196,7 +196,7 @@ export default function ProductListingScreen() {
 
       {/* Product List */}
       {isLoading ? (
-        <LoadingSpinner message="Fetching products..." fullScreen />
+        <ProductListSkeleton />
       ) : (
         <FlatList
           data={products}
