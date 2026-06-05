@@ -7,7 +7,7 @@ import { ImageCarousel } from "@/components/ImageCarousel";
 import { ReviewCard } from "@/components/ReviewCard";
 import { RatingStars } from "@/components/ui/RatingStars";
 import { Badge } from "@/components/ui/Badge";
-import { ProductDetailsSkeleton } from "@/components/ui/ProductDetailsSkeleton";
+import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 
 export default function ProductDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -16,23 +16,8 @@ export default function ProductDetailsScreen() {
 
   if (isLoading) {
     return (
-      <SafeAreaView className="flex-1 bg-white" edges={["top"]}>
-        {/* Top Bar */}
-        <View className="flex-row items-center justify-between px-4 py-3">
-          <Pressable
-            onPress={() => router.back()}
-            className="w-10 h-10 rounded-full bg-dark-50 items-center justify-center border border-dark-100"
-          >
-            <Text className="text-dark-700 text-lg">←</Text>
-          </Pressable>
-          <Text className="text-dark-800 text-sm font-semibold">
-            Product Details
-          </Text>
-          <View className="w-10 h-10 rounded-full bg-dark-50 items-center justify-center border border-dark-100">
-            <Text className="text-lg">♡</Text>
-          </View>
-        </View>
-        <ProductDetailsSkeleton />
+      <SafeAreaView className="flex-1 bg-white">
+        <LoadingSpinner message="Loading product details..." fullScreen />
       </SafeAreaView>
     );
   }

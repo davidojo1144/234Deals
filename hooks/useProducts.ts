@@ -1,7 +1,10 @@
 import { useEffect, useCallback, useRef } from "react";
 import { useProductStore } from "@/store/useProductStore";
 
-
+/**
+ * Custom hook for managing products data fetching and state.
+ * Wraps the Zustand store for clean component usage.
+ */
 export const useProducts = () => {
   const {
     products,
